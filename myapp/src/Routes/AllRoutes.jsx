@@ -3,6 +3,8 @@ import Home from './Home';
 import Login from './Login';
 import Dashboard from './Dashboard';
 import PrivateRoute from '../Components/PrivateRoute';
+import Everything from '../Components/Everything';
+import TopHeadlines from '../Components/TopHeadlines';
 
 function AllRoutes() {
   return (
@@ -15,6 +17,8 @@ function AllRoutes() {
             <Dashboard />
           </PrivateRoute>
         }></Route>
+        <Route path='/every' element={<Everything />}></Route>
+        <Route path='/tophead' element={<TopHeadlines />}></Route>
       </Routes>
     </div>
   );

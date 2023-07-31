@@ -1,28 +1,17 @@
 import { Box, Button, Heading, Text } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
-import Loading from "../Components/Loading";
-import Error from "../Components/Error";
+import { Link } from "react-router-dom";
+
+
+
+
+
 
 let userDetails = JSON.parse(localStorage.getItem('userDetails')) || "";
 function Dashboard() {
   const { logoutUser } = useContext(AuthContext);
-  const [loading, setLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
-
-
-
-  const getCardData = async () => {
-    try {
-      let res = await fetch();
-      res = await res.json();
-      setLoading(false);
-      setIsError(false);
-    } catch (err) {
-      setIsError(true);
-    }
-  };
-
+  
   return (
     <Box padding={'10px'}>
       <Box display={'flex'} justifyContent={'space-evenly'} mb={['10%', '10%', '5%']}>
@@ -30,8 +19,8 @@ function Dashboard() {
         <Text display={['none', 'none', 'block']}>Welcome❤️{userDetails.name}</Text>
         <Button bg='black' color={'red'} onClick={logoutUser}>Logout</Button>
       </Box>
-      {isError && <Error />}
-      {loading && <Loading />}
+      <Text fontSize={'23px'}><Link to={'/tophead'}>Top Headlines</Link></Text>
+      <Text fontSize={'23px'}><Link to={'/every'}>Every Thing</Link></Text>
     </Box>
   );
 }
