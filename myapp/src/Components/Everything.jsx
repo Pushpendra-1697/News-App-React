@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Loading from './Loading';
 import { Link } from 'react-router-dom';
 import Error from './Error';
+import Navbar from './Navbar';
 
 const Everything = () => {
     const [value, setValue] = useState([]);
@@ -17,7 +18,7 @@ const Everything = () => {
         let sort = e.target.value;
         try {
             setLoading(true);
-            let res = await fetch(`https://newsapi.org/v2/everything?q=${title}&sortBy=${sort}&apiKey=32b6a06a030e40e5a220e39c280795f2`);
+            let res = await fetch(`https://newsapi.org/v2/everything?q=${title}&sortBy=${sort}&${process.env.REACT_APP_apiKey}`);
             res = await res.json();
             setLoading(false);
             if (res.status == 'error') {
@@ -41,13 +42,14 @@ const Everything = () => {
 
     return (
         <Box width={'90%'} m='auto'>
-            <Box m='5%' display={'flex'} justifyContent={'space-around'}>
+            <Navbar />
+            <Box m={['10% 0', '10% 0', '5% 0']} display={'flex'} justifyContent={'space-around'}>
                 <Box>
-                    <Input width={'200px'} onChange={(e) => setTitle(e.target.value)} placeholder='Enter Yr Title' />
+                    <Input width={['100px', '100px', '200px']} onChange={(e) => setTitle(e.target.value)} placeholder='Enter Yr Title' />
                     <Button onClick={getData}>{loading ? <Loading /> : "Search"}</Button>
                 </Box>
                 <Box display={'flex'} gap={'5px'} flexDirection={['column', 'column', 'row']}>
-                    <Select onChange={getData}>
+                    <Select width={'150px'} onChange={getData}>
                         <option value={''}>SORT BY</option>
                         <option value={'popularity'}>Popularity</option>
                         <option value={'publishedAt'}>PublishedAt</option>
@@ -77,7 +79,6 @@ const Everything = () => {
                     </Box>
 
             }
-
 
         </Box>
     );
