@@ -1,9 +1,10 @@
-import { Box, Button, Heading, Text, Img, useToast, Select } from '@chakra-ui/react';
+import { Box, Button, useToast, Select } from '@chakra-ui/react';
 import React, { useState } from 'react'
 import Loading from './Loading';
-import { Link } from 'react-router-dom';
 import Error from './Error';
 import Navbar from './Navbar';
+import TopHeadlineCard from './TopHeadlineCard';
+import DefaultTopHeadlines from './DefaultTopHeadlines';
 
 const TopHeadlines = () => {
     const [value, setValue] = useState([]);
@@ -16,7 +17,7 @@ const TopHeadlines = () => {
     const getData = async (country = 'in', category = "general") => {
         try {
             setLoading(true);
-            let res = await fetch(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&${process.env.REACT_APP_apiKey}`);
+            let res = await fetch(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.REACT_APP_apiKey}`);
             res = await res.json();
             setLoading(false);
             if (res.status == 'error') {
@@ -78,20 +79,12 @@ const TopHeadlines = () => {
             {error && <Error />}
 
             {
-                value.length === 0 ? <Heading color={'goldenrod'}>No Search Till Now 😊</Heading> :
+                value.length === 0 ? <DefaultTopHeadlines toggler={toggler} /> :
 
                     <Box display={'grid'} gridTemplateColumns={[toggler ? 'repeat(2,1fr)' : 'repeat(1,1fr)', toggler ? 'repeat(2,1fr)' : 'repeat(1,1fr)', toggler ? 'repeat(2,1fr)' : 'repeat(3,1fr)']} gap={'20px'}>
-                        {value && value.map(({ urlToImage, source, title, description, author, publishedAt, url
+                        {value && value.map(({ urlToImage, title, description, author, publishedAt, url
                         }, index) =>
-                            <Box padding={'3px'} boxShadow="rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" borderRadius={'10px'} key={index
-                            }>
-                                <Img borderRadius={'5px'} mb='2%' w={'100%'} h='250px' src={urlToImage} alt={title} />
-                                <Text mb='2%' lineHeight={'16px'}>Title: {title}</Text>
-                                <Text mb='2%'>Author: {author}</Text>
-                                <Text lineHeight={'16px'} mb='2%'>Description: {description}</Text>
-                                <Text mb='2%'>PublishedAt: {publishedAt}</Text>
-                                <Text fontSize={'23px'} color={'red'}><Link target='_blank' to={url}>MORE</Link></Text>
-                            </Box>
+                            <TopHeadlineCard index={index} author={author} title={title} description={description} publishedAt={publishedAt} url={url} urlToImage={urlToImage} />
                         )}
                     </Box>
 
