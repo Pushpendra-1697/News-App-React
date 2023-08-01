@@ -20,5 +20,7 @@ React.js, react-router-dom, chakra-ui, react-icons, and Context-API.
 # Project Live link:
 https://myapp-opal-alpha.vercel.app
 
+## NOTE: Actually newsapi.org api in developer plan is no more working in production. because in developer plan CORS is only enabled for localhost.
+
 # Some Output ScreenShots:
 
