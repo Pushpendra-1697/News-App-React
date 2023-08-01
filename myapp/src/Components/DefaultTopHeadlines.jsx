@@ -20,7 +20,6 @@ const DefaultTopHeadlines = ({ toggler }) => {
     try {
       let res = await fetch(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.REACT_APP_apiKey}&pageSize=20&page=${page}`);
       res = await res.json();
-      console.log(res)
       setLoading(false);
       if (res.status == 'error') {
         return toast({

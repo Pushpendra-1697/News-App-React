@@ -11,6 +11,8 @@ function AuthContextProvider({ children }) {
     const logoutUser = () => {
         setIsAuth(false);
         localStorage.removeItem('userDetails');
+        localStorage.removeItem('FavoriteArticles');
+        localStorage.clear();
     };
 
     const value = { isAuth, loginUser, logoutUser };

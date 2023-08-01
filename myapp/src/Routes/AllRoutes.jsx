@@ -5,6 +5,7 @@ import Dashboard from './Dashboard';
 import PrivateRoute from '../Components/PrivateRoute';
 import Everything from '../Components/Everything';
 import TopHeadlines from '../Components/TopHeadlines';
+import Favorites from '../Components/Favorites';
 
 function AllRoutes() {
   return (
@@ -17,8 +18,21 @@ function AllRoutes() {
             <Dashboard />
           </PrivateRoute>
         }></Route>
-        <Route path='/every' element={<Everything />}></Route>
-        <Route path='/tophead' element={<TopHeadlines />}></Route>
+        <Route path='/every' element={
+          <PrivateRoute>
+            <Everything />
+          </PrivateRoute>
+        }></Route>
+        <Route path='/tophead' element={
+          <PrivateRoute>
+            <TopHeadlines />
+          </PrivateRoute>
+        }></Route>
+        <Route path='/favorites' element={
+          <PrivateRoute>
+            <Favorites />
+          </PrivateRoute>
+        }></Route>
       </Routes>
     </div>
   );
